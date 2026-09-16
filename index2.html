@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RRR Jewellers — Gopal, Partner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#07211C;
+    --bg-2:#0D3129;
+    --panel:rgba(255,255,255,0.045);
+    --panel-strong:rgba(255,255,255,0.07);
+    --border:rgba(212,175,90,0.28);
+    --border-soft:rgba(255,255,255,0.08);
+    --gold-1:#C9A227;
+    --gold-2:#F1D889;
+    --gold-3:#8A6A1E;
+    --copper:#C97B3D;
+    --teal:#1F6E5F;
+    --ink:#F4EFE2;
+    --muted:#A7B0A9;
+    --serif:'Cormorant Garamond', Georgia, serif;
+    --sans:'Manrope', 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  :root[data-theme="dark"]{ color-scheme: dark; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ color-scheme: dark; } }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:
+      radial-gradient(1200px 500px at 50% -10%, #123D33 0%, transparent 60%),
+      linear-gradient(180deg, var(--bg-1) 0%, #081D18 100%);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    display:flex;
+    justify-content:center;
+    padding:0 0 70px;
+  }
+
+  .card{ width:100%; max-width:460px; min-height:100vh; position:relative; }
+
+  /* ---------- Cover banner ---------- */
+  .cover{
+    position:relative;
+    height:190px;
+    overflow:hidden;
+    background:
+      radial-gradient(600px 260px at 20% 0%, rgba(201,162,39,0.20), transparent 60%),
+      radial-gradient(500px 240px at 90% 10%, rgba(31,110,95,0.55), transparent 65%),
+      linear-gradient(160deg, #0E362D 0%, #0A251F 60%, #071A15 100%);
+  }
+  .cover svg.pattern{
+    position:absolute; inset:0; width:100%; height:100%;
+    opacity:0.16;
+  }
+  .cover::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height:70px;
+    background:linear-gradient(180deg, transparent, var(--bg-1) 92%);
+  }
+  .cover .badge{
+    position:absolute; top:16px; right:16px;
+    font-size:10px; letter-spacing:0.14em;
+    color:var(--gold-2);
+    background:rgba(0,0,0,0.28);
+    border:1px solid var(--border);
+    padding:6px 10px;
+    border-radius:999px;
+    backdrop-filter:blur(6px);
+  }
+
+  /* ---------- Avatar + identity ---------- */
+  .identity{ text-align:center; padding:0 24px 26px; margin-top:-58px; position:relative; }
+  .avatar-wrap{
+    width:116px; height:116px; margin:0 auto 16px;
+    border-radius:50%;
+    padding:4px;
+    background:conic-gradient(from 180deg, var(--gold-1), var(--gold-2), var(--copper), var(--gold-1));
+    box-shadow:0 10px 30px rgba(0,0,0,0.45), 0 0 0 1px rgba(0,0,0,0.3);
+  }
+  .avatar{
+    width:100%; height:100%; border-radius:50%;
+    background:#0A2822 center/cover no-repeat;
+    border:3px solid #081D18;
+  }
+  .biz-name{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:34px;
+    line-height:1.08;
+    margin:0 0 6px;
+    background:linear-gradient(180deg, #FBEBB0 0%, var(--gold-2) 35%, var(--gold-1) 75%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    letter-spacing:0.01em;
+  }
+  .tagline{
+    font-size:11.5px;
+    letter-spacing:0.22em;
+    color:var(--teal);
+    color:#5FBFA6;
+    margin:0 0 14px;
+    font-weight:600;
+  }
+  .person{
+    font-size:15px;
+    color:var(--ink);
+    margin:0;
+    font-weight:500;
+  }
+  .person span{ color:var(--muted); font-weight:400; }
+
+  /* ---------- Action row ---------- */
+  .actions{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    padding:0 20px 8px;
+  }
+  .action{
+    display:flex; flex-direction:column; align-items:center; gap:7px;
+    padding:14px 4px;
+    border-radius:16px;
+    border:1px solid var(--border-soft);
+    background:var(--panel);
+    backdrop-filter:blur(10px);
+    color:var(--ink);
+    text-decoration:none;
+    font-size:11px;
+    letter-spacing:0.02em;
+    cursor:pointer;
+    transition:transform .15s ease, border-color .2s ease, background .2s ease;
+  }
+  .action:active{ transform:scale(0.96); }
+  .action:hover{ border-color:var(--border); background:var(--panel-strong); }
+  .action svg{ width:19px; height:19px; stroke:var(--gold-2); }
+  .action[disabled]{ opacity:.35; cursor:not-allowed; }
+
+  /* ---------- Section shell ---------- */
+  .section{ padding:22px 20px 4px; }
+  .panel{
+    border-radius:20px;
+    border:1px solid var(--border-soft);
+    background:var(--panel);
+    backdrop-filter:blur(10px);
+    padding:20px;
+  }
+  .eyebrow{
+    font-size:11px; letter-spacing:0.16em;
+    color:var(--gold-2);
+    margin:0 0 14px;
+    font-weight:600;
+    display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::after{ content:""; flex:1; height:1px; background:linear-gradient(90deg, var(--border), transparent); }
+  .bio{ font-size:15px; line-height:1.7; color:#DDD6C4; margin:0; font-weight:300; }
+
+  .row{
+    display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+    padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.06); font-size:13.5px;
+  }
+  .row:last-child{ border-bottom:none; }
+  .row .k{ color:var(--muted); }
+  .row .v{ text-align:right; color:var(--ink); font-weight:500; }
+  .fine-note{ font-size:11.5px; color:var(--muted); margin:14px 0 0; line-height:1.55; }
+
+  .tags{ display:flex; flex-wrap:wrap; gap:9px; }
+  .tag{
+    font-size:12.5px; padding:8px 14px; border-radius:999px;
+    border:1px solid var(--border);
+    background:linear-gradient(180deg, rgba(201,162,39,0.14), rgba(201,162,39,0.03));
+    color:var(--gold-2);
+  }
+
+  .certs{ display:flex; justify-content:space-between; gap:8px; }
+  .cert{ flex:1; text-align:center; padding:14px 4px; border-radius:14px; background:rgba(255,255,255,0.03); }
+  .cert svg{ width:26px; height:26px; stroke:var(--gold-2); margin-bottom:8px; }
+  .cert span{ display:block; font-size:10px; color:var(--muted); line-height:1.4; }
+
+  /* ---------- Gallery ---------- */
+  .gallery{ display:grid; grid-template-columns:1.3fr 1fr; grid-template-rows:1fr 1fr; gap:8px; height:230px; }
+  .g-tile{
+    border-radius:16px; position:relative; overflow:hidden;
+    display:flex; align-items:flex-end;
+    border:1px solid var(--border-soft);
+  }
+  .g-tile.big{ grid-row:1 / span 2; }
+  .g-tile .fill{ position:absolute; inset:0; }
+  .g-tile .cap{
+    position:relative; z-index:2; padding:12px; font-size:11.5px; color:var(--gold-2);
+    letter-spacing:0.04em; font-weight:600;
+    text-shadow:0 2px 8px rgba(0,0,0,0.6);
+  }
+  .g-tile::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55)); z-index:1; }
+  .g1 .fill{ background:linear-gradient(140deg,#164338,#0B241E 70%); }
+  .g2 .fill{ background:linear-gradient(140deg,#3B2E12,#1D1608 70%); }
+  .g3 .fill{ background:linear-gradient(140deg,#1E4A3F,#0B241E 70%); }
+  .g-tile svg{ position:absolute; top:14px; left:14px; width:22px; height:22px; stroke:var(--gold-2); opacity:0.9; z-index:2; }
+
+  /* ---------- Rating strip ---------- */
+  .rating{ display:flex; align-items:center; gap:10px; }
+  .stars{ display:flex; gap:2px; }
+  .stars svg{ width:15px; height:15px; fill:var(--gold-2); stroke:none; }
+  .rating .num{ font-size:14px; font-weight:600; color:var(--ink); }
+  .rating .sub{ font-size:12px; color:var(--muted); }
+
+  /* ---------- Footer ---------- */
+  footer{ padding:30px 20px 0; text-align:center; }
+  footer .addr{ font-size:13.5px; color:var(--muted); line-height:1.7; margin:0 0 18px; }
+  .social{ display:flex; justify-content:center; gap:12px; margin-bottom:24px; }
+  .social a{
+    width:40px; height:40px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--border-soft); background:var(--panel);
+    color:var(--gold-2); text-decoration:none;
+  }
+  .social a svg{ width:17px; height:17px; stroke:var(--gold-2); }
+  .fineprint{ font-size:10.5px; color:#5B6B64; line-height:1.7; padding-bottom:6px; }
+
+  .toast{
+    position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(12px);
+    background:var(--gold-2); color:#182620; padding:10px 18px; border-radius:999px;
+    font-size:13px; font-family:var(--sans); font-weight:600;
+    opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; z-index:10;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){ .action, .toast{ transition:none; } }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="cover">
+    <svg class="pattern" viewBox="0 0 460 190" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="mandala" width="90" height="90" patternUnits="userSpaceOnUse">
+          <g stroke="#E3C567" stroke-width="0.6" fill="none">
+            <circle cx="45" cy="45" r="30"/>
+            <circle cx="45" cy="45" r="18"/>
+            <path d="M45 15 L45 75 M15 45 L75 45 M23 23 L67 67 M67 23 L23 67"/>
+          </g>
+        </pattern>
+      </defs>
+      <rect width="460" height="190" fill="url(#mandala)"/>
+    </svg>
+    <span class="badge">EST. 1998</span>
+  </div>
+
+  <div class="identity">
+    <div class="avatar-wrap">
+      <div class="avatar" style="background-image:url('data:image/jpeg;base64,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');"></div>
+    </div>
+    <h1 class="biz-name">RRR Jewellers</h1>
+    <p class="tagline">GOLD &nbsp;·&nbsp; SILVER &nbsp;·&nbsp; DIAMONDS</p>
+    <p class="person">Gopal <span>— Partner</span></p>
+  </div>
+
+  <div class="actions">
+    <a class="action" href="tel:+919000000000">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.99.36 1.96.68 2.89a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.19-1.19a2 2 0 0 1 2.11-.45c.93.32 1.9.55 2.89.68A2 2 0 0 1 22 16.92z"/></svg>
+      Call
+    </a>
+    <a class="action" href="https://wa.me/919000000000" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      WhatsApp
+    </a>
+    <button class="action" id="saveContactBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Save
+    </button>
+    <a class="action" href="mailto:ramesh@rrrjewellers.example">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+      Email
+    </a>
+  </div>
+
+  <div class="section">
+    <div class="panel">
+      <p class="eyebrow">ABOUT</p>
+      <p class="bio">Third-generation jewellers based in Hyderabad, crafting gold, silver and diamond jewellery since 1998. RRR Jewellers is known for hallmarked purity, certified diamonds and bespoke bridal collections — trusted across the city's bullion and diamond trade for three generations.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="panel">
+      <p class="eyebrow">SHOWROOM &amp; COLLECTIONS</p>
+      <div class="gallery">
+        <div class="g-tile big g1">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-6h6v6"/></svg>
+          <div class="fill"></div>
+          <span class="cap">Showroom, Sultan Bazaar</span>
+        </div>
+        <div class="g-tile g2">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 2l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1.5z"/></svg>
+          <div class="fill"></div>
+          <span class="cap">Bridal Collection</span>
+        </div>
+        <div class="g-tile g3">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+          <div class="fill"></div>
+          <span class="cap">The Workshop</span>
+        </div>
+      </div>
+      <p class="fine-note">Sample tiles — swap in real showroom, product and workshop photography here.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="panel">
+      <p class="eyebrow">BUSINESS &amp; REGISTRATION</p>
+      <div class="row"><span class="k">Legal name</span><span class="v">RRR Jewellers</span></div>
+      <div class="row"><span class="k">Entity type</span><span class="v">Partnership Firm</span></div>
+      <div class="row"><span class="k">Established</span><span class="v">1998</span></div>
+      <div class="row"><span class="k">GSTIN</span><span class="v">36ABCXX••••1Z5</span></div>
+      <div class="row"><span class="k">PAN (firm)</span><span class="v">ABCXX••••X</span></div>
+      <div class="row"><span class="k">BIS Hallmark Lic.</span><span class="v">HUID-XXXXXXX</span></div>
+      <p class="fine-note">Full PAN, GSTIN and licence copies shared directly during vendor onboarding / KYC, on request.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="panel">
+      <p class="eyebrow">SPECIALITIES</p>
+      <div class="tags">
+        <span class="tag">22K Gold Jewellery</span>
+        <span class="tag">Silver Articles</span>
+        <span class="tag">18K Diamond Jewellery</span>
+        <span class="tag">Bridal Collections</span>
+        <span class="tag">Gold Exchange</span>
+        <span class="tag">Custom Orders</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="panel">
+      <p class="eyebrow">CERTIFICATIONS</p>
+      <div class="certs">
+        <div class="cert">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 2l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1.5z"/></svg>
+          <span>BIS Hallmark<br/>Certified</span>
+        </div>
+        <div class="cert">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+          <span>GST<br/>Registered</span>
+        </div>
+        <div class="cert">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="4" y="7" width="16" height="12" rx="1"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>
+          <span>MSME /<br/>Udyam Reg.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="panel">
+      <p class="eyebrow">REPUTATION</p>
+      <div class="rating">
+        <div class="stars">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 7.5l6.4-.6z"/></svg>
+        </div>
+        <span class="num">4.9</span>
+        <span class="sub">· 500+ Google Reviews (sample)</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="addr">
+      12-3-45, Sultan Bazaar<br/>
+      Hyderabad, Telangana – 500095<br/>
+      Open 10:30 AM – 9:00 PM
+    </p>
+    <div class="social">
+      <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M15 8h2V4h-2a4 4 0 0 0-4 4v2H9v4h2v8h4v-8h2.5l.5-4H15V8z"/></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Google Maps">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </a>
+    </div>
+    <p class="fineprint">Sample profile for demonstration.<br/>Replace cover art, avatar, gallery photos, contact details and license numbers with RRR Jewellers' actual information before publishing to the NFC card.</p>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast">Saving contact…</div>
+
+<script>
+  const VCARD = `BEGIN:VCARD
+VERSION:3.0
+N:Reddy;Ramesh Kumar;;;
+FN:Ramesh Kumar Reddy
+ORG:RRR Jewellers
+TITLE:Partner
+TEL;TYPE=CELL:+919000000000
+EMAIL:ramesh@rrrjewellers.example
+ADR;TYPE=WORK:;;12-3-45 Sultan Bazaar;Hyderabad;Telangana;500095;India
+END:VCARD`;
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 2200);
+  }
+
+  const btn = document.getElementById('saveContactBtn');
+  let downloadsApi = null;
+
+  (async () => {
+    try{
+      if (window.claude && typeof window.claude.use === 'function'){
+        downloadsApi = await window.claude.use('downloads');
+      }
+    }catch(e){ downloadsApi = null; }
+    if(!downloadsApi){ btn.disabled = true; }
+  })();
+
+  btn.addEventListener('click', async () => {
+    if(!downloadsApi){ showToast('Save not available in this preview'); return; }
+    try{
+      await downloadsApi.save({ filename: 'Ramesh_Kumar_Reddy_RRR_Jewellers.vcf', data: VCARD });
+      showToast('Contact saved');
+    }catch(e){
+      showToast('Could not save contact');
+    }
+  });
+</script>
+
+</body>
+</html>
